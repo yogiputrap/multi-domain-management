@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <%- include('../partials/admin-sidebar') %>
+
+        <main class="ml-64 p-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-slate-900">All Subdomains</h1>
+                <p class="text-slate-600">System-wide subdomain overview</p>
+            </div>
+
+            <!-- Subdomains Table -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <% if (subdomains && subdomains.length> 0) { %>
+                        <div class="table-container border-0">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subdomain</th>
+                                        <th>Type</th>
+                                        <th>Target</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Created</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% subdomains.forEach(sub=> { %>
+                                        <tr>
+                                            <td>
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center">
+                                                        <svg class="w-5 h-5 text-slate-500" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold text-slate-900">
+                                                            <%= sub.fullDomain %>
+                                                        </p>
+                                                        <p class="text-xs text-slate-400">
+                                                            <%= sub.domain.rootDomain %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-info">
+                                                    <%= sub.type %>
+                                                </span>
+                                            </td>
+                                            <td class="font-mono text-sm text-slate-600">
+                                                <%= sub.target %>
+                                            </td>
+                                            <td>
+                                                <div class="flex items-center gap-2">
+                                                    <div
+                                                        class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-xs font-semibold">
+                                                        <%= sub.user.email.charAt(0).toUpperCase() %>
+                                                    </div>
+                                                    <span class="text-sm">
+                                                        <%= sub.user.email %>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <% if (sub.status==='active' ) { %>
+                                                    <span class="badge badge-success">Active</span>
+                                                    <% } else if (sub.status==='pending' ) { %>
+                                                        <span class="badge badge-warning">Pending</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-danger">Failed</span>
+                                                            <% } %>
+                                            </td>
+                                            <td class="text-slate-500 text-sm">
+                                                <%= new Date(sub.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td>
+                                                <div class="flex items-center justify-end">
+                                                    <button
+                                                        onclick="confirmDelete('<%= sub.id %>', '<%= sub.fullDomain %>')"
+                                                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        title="Delete">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                            <div class="p-12 text-center">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <p class="text-slate-600">No subdomains created yet</p>
+                                <p class="text-sm text-slate-400">Users can create subdomains from their dashboard</p>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </main>
+
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-lg font-semibold text-slate-900">Delete Subdomain</h3>
+                    <button onclick="UI.hideModal('deleteModal')"
+                        class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-slate-700">Are you sure you want to delete <strong
+                                    id="deleteSubdomainName"></strong>?</p>
+                            <p class="text-sm text-slate-500 mt-1">This will remove the DNS record. This action cannot
+                                be undone.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="UI.hideModal('deleteModal')"
+                        class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" onclick="deleteSubdomain()"
+                        class="btn btn-danger">Delete Subdomain</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/app.js"></script>
+        <script>
+            let deleteSubdomainId = null;
+
+            function confirmDelete(id, name) {
+                deleteSubdomainId = id;
+                document.getElementById('deleteSubdomainName').textContent = name;
+                UI.showModal('deleteModal');
+            }
+
+            async function deleteSubdomain() {
+                const btn = document.getElementById('confirmDeleteBtn');
+                UI.showLoading(btn);
+
+                try {
+                    await API.adminDeleteSubdomain(deleteSubdomainId);
+                    UI.showNotification('Subdomain deleted successfully', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+        </script>
+</body>
+
+</html>

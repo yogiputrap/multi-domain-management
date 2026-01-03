@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <%- include('../partials/admin-sidebar') %>
+
+        <main class="ml-64 p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900">Domain Assignments</h1>
+                    <p class="text-slate-600">Assign domains to users</p>
+                </div>
+                <button onclick="UI.showModal('assignDomainModal')" class="btn btn-primary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                        </path>
+                    </svg>
+                    Assign Domain
+                </button>
+            </div>
+
+            <!-- Assignments Table -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <% if (assignments && assignments.length> 0) { %>
+                        <div class="table-container border-0">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Domain</th>
+                                        <th>Assigned Date</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% assignments.forEach(assignment=> { %>
+                                        <tr>
+                                            <td>
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold text-sm">
+                                                        <%= assignment.user.email.charAt(0).toUpperCase() %>
+                                                    </div>
+                                                    <span class="font-medium text-slate-900">
+                                                        <%= assignment.user.email %>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="flex items-center gap-2">
+                                                    <svg class="w-5 h-5 text-primary-500" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="font-medium text-slate-900">
+                                                        <%= assignment.domain.rootDomain %>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="text-slate-500">
+                                                <%= new Date(assignment.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td>
+                                                <div class="flex items-center justify-end">
+                                                    <button
+                                                        onclick="confirmUnassign('<%= assignment.userId %>', '<%= assignment.domainId %>', '<%= assignment.user.email %>', '<%= assignment.domain.rootDomain %>')"
+                                                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        title="Remove Assignment">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                            <div class="p-12 text-center">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <p class="text-slate-600 mb-2">No domain assignments yet</p>
+                                <p class="text-sm text-slate-400 mb-4">Assign domains to users to get started</p>
+                                <button onclick="UI.showModal('assignDomainModal')" class="btn btn-primary">
+                                    Assign Domain
+                                </button>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </main>
+
+        <!-- Assign Domain Modal -->
+        <div id="assignDomainModal" class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-lg font-semibold text-slate-900">Assign Domain to User</h3>
+                    <button onclick="UI.hideModal('assignDomainModal')"
+                        class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="assignDomainForm" onsubmit="assignDomain(event)">
+                    <div class="modal-body space-y-4">
+                        <div class="form-group">
+                            <label for="userId" class="form-label">Select User</label>
+                            <select id="userId" name="userId" class="form-select" required>
+                                <option value="">Choose a user...</option>
+                                <% users.forEach(user=> { %>
+                                    <option value="<%= user.id %>">
+                                        <%= user.email %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="domainId" class="form-label">Select Domain</label>
+                            <select id="domainId" name="domainId" class="form-select" required>
+                                <option value="">Choose a domain...</option>
+                                <% domains.forEach(domain=> { %>
+                                    <option value="<%= domain.id %>">
+                                        <%= domain.rootDomain %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="UI.hideModal('assignDomainModal')"
+                            class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="assignDomainBtn" class="btn btn-primary">Assign Domain</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Unassign Confirmation Modal -->
+        <div id="unassignModal" class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-lg font-semibold text-slate-900">Remove Assignment</h3>
+                    <button onclick="UI.hideModal('unassignModal')"
+                        class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-slate-700">Remove domain <strong id="unassignDomainName"></strong> from user <strong
+                            id="unassignUserEmail"></strong>?</p>
+                    <p class="text-sm text-slate-500 mt-2">The user will no longer be able to create subdomains on this
+                        domain.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="UI.hideModal('unassignModal')"
+                        class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="confirmUnassignBtn" onclick="unassignDomain()"
+                        class="btn btn-danger">Remove Assignment</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/app.js"></script>
+        <script>
+            let unassignData = null;
+
+            async function assignDomain(e) {
+                e.preventDefault();
+                const btn = document.getElementById('assignDomainBtn');
+                const userId = document.getElementById('userId').value;
+                const domainId = document.getElementById('domainId').value;
+
+                UI.showLoading(btn);
+
+                try {
+                    await API.assignDomain(userId, domainId);
+                    UI.showNotification('Domain assigned successfully', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+
+            function confirmUnassign(userId, domainId, userEmail, domainName) {
+                unassignData = { userId, domainId };
+                document.getElementById('unassignUserEmail').textContent = userEmail;
+                document.getElementById('unassignDomainName').textContent = domainName;
+                UI.showModal('unassignModal');
+            }
+
+            async function unassignDomain() {
+                const btn = document.getElementById('confirmUnassignBtn');
+                UI.showLoading(btn);
+
+                try {
+                    await API.unassignDomain(unassignData.userId, unassignData.domainId);
+                    UI.showNotification('Assignment removed successfully', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+        </script>
+</body>
+
+</html>

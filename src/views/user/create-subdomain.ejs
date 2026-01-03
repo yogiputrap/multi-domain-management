@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <%- include('../partials/user-sidebar', { domains: [] }) %>
+
+        <main class="ml-64 p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900">Create Subdomain</h1>
+                    <p class="text-slate-600">Add a new subdomain to your domain</p>
+                </div>
+                <a href="/user/subdomains" class="btn btn-secondary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to List
+                </a>
+            </div>
+
+            <div class="max-w-2xl">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="createSubdomainForm" onsubmit="createSubdomain(event)">
+                            <div class="space-y-5">
+                                <!-- Domain Selection -->
+                                <div class="form-group">
+                                    <label for="domainId" class="form-label">Select Domain</label>
+                                    <select id="domainId" name="domainId" class="form-select" required
+                                        onchange="updatePreview()">
+                                        <option value="">Choose a domain...</option>
+                                        <% if (domains && domains.length> 0) { %>
+                                            <% domains.forEach(domain=> { %>
+                                                <option value="<%= domain.id %>" data-domain="<%= domain.rootDomain %>">
+                                                    <%= domain.rootDomain %>
+                                                </option>
+                                                <% }) %>
+                                                    <% } %>
+                                    </select>
+                                    <% if (!domains || domains.length===0) { %>
+                                        <p class="text-sm text-amber-600 mt-2">⚠️ No domains assigned. Contact your
+                                            administrator.</p>
+                                        <% } %>
+                                </div>
+
+                                <!-- Subdomain Name -->
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Subdomain Name</label>
+                                    <div class="relative">
+                                        <input type="text" id="name" name="name" class="form-input pr-32"
+                                            placeholder="api" required
+                                            pattern="^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$" maxlength="63"
+                                            oninput="updatePreview()">
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                            <button type="button" id="checkBtn" onclick="checkAvailability()"
+                                                class="px-3 py-1.5 bg-primary-50 text-primary-600 text-sm font-medium rounded-lg hover:bg-primary-100 transition-colors"
+                                                disabled>
+                                                Check
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-slate-400 mt-2">Use only letters, numbers, and hyphens.
+                                        Cannot start or end with a hyphen.</p>
+                                    <div id="availabilityResult" class="mt-2"></div>
+                                </div>
+
+                                <!-- Preview -->
+                                <div id="previewBox" class="p-4 bg-slate-50 rounded-xl border border-slate-200 hidden">
+                                    <p class="text-sm text-slate-500 mb-1">Full Domain Preview:</p>
+                                    <p class="text-lg font-semibold text-slate-900" id="fullDomainPreview">-</p>
+                                </div>
+
+                                <!-- Record Type -->
+                                <div class="form-group">
+                                    <label for="type" class="form-label">Record Type</label>
+                                    <select id="type" name="type" class="form-select" required
+                                        onchange="updateTargetPlaceholder()">
+                                        <option value="A">A Record (IPv4 Address)</option>
+                                        <option value="CNAME">CNAME Record (Domain Alias)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Target -->
+                                <div class="form-group">
+                                    <label for="target" class="form-label">Target</label>
+                                    <input type="text" id="target" name="target" class="form-input"
+                                        placeholder="192.168.1.100" required>
+                                    <p class="text-sm text-slate-400 mt-2" id="targetHelp">Enter the IPv4 address where
+                                        this subdomain should point</p>
+                                </div>
+
+                                <!-- Info Box -->
+                                <div class="alert alert-info">
+                                    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="font-medium">DNS Provisioning</p>
+                                        <p class="text-sm">Subdomains will be automatically provisioned via Cloudflare
+                                            DNS if configured, or stored in the database for manual setup.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" id="submitBtn" class="btn btn-primary w-full py-3.5" disabled>
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Create Subdomain
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="/js/app.js"></script>
+        <script>
+            let isAvailable = false;
+
+            function updatePreview() {
+                const name = document.getElementById('name').value;
+                const domainSelect = document.getElementById('domainId');
+                const selectedOption = domainSelect.options[domainSelect.selectedIndex];
+                const rootDomain = selectedOption.dataset.domain;
+
+                const checkBtn = document.getElementById('checkBtn');
+                const submitBtn = document.getElementById('submitBtn');
+                const previewBox = document.getElementById('previewBox');
+                const preview = document.getElementById('fullDomainPreview');
+
+                if (name && rootDomain) {
+                    preview.textContent = `${name}.${rootDomain}`;
+                    previewBox.classList.remove('hidden');
+                    checkBtn.disabled = false;
+                    isAvailable = false;
+                    submitBtn.disabled = true;
+                    document.getElementById('availabilityResult').innerHTML = '';
+                } else {
+                    previewBox.classList.add('hidden');
+                    checkBtn.disabled = true;
+                    submitBtn.disabled = true;
+                }
+            }
+
+            function updateTargetPlaceholder() {
+                const type = document.getElementById('type').value;
+                const target = document.getElementById('target');
+                const help = document.getElementById('targetHelp');
+
+                if (type === 'A') {
+                    target.placeholder = '192.168.1.100';
+                    help.textContent = 'Enter the IPv4 address where this subdomain should point';
+                } else {
+                    target.placeholder = 'example.com';
+                    help.textContent = 'Enter the domain name this subdomain should alias to';
+                }
+            }
+
+            async function checkAvailability() {
+                const name = document.getElementById('name').value;
+                const domainId = document.getElementById('domainId').value;
+                const resultDiv = document.getElementById('availabilityResult');
+                const checkBtn = document.getElementById('checkBtn');
+                const submitBtn = document.getElementById('submitBtn');
+
+                if (!name || !domainId) return;
+
+                checkBtn.disabled = true;
+                checkBtn.innerHTML = '<span class="spinner"></span>';
+
+                try {
+                    const result = await API.checkAvailability(name, domainId);
+
+                    if (result.available) {
+                        resultDiv.innerHTML = `
+            <div class="flex items-center gap-2 text-emerald-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="font-medium">${result.message}</span>
+            </div>
+          `;
+                        isAvailable = true;
+                        submitBtn.disabled = false;
+                    } else {
+                        resultDiv.innerHTML = `
+            <div class="flex items-center gap-2 text-red-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="font-medium">${result.message}</span>
+            </div>
+          `;
+                        isAvailable = false;
+                        submitBtn.disabled = true;
+                    }
+                } catch (error) {
+                    resultDiv.innerHTML = `
+          <div class="flex items-center gap-2 text-red-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">${error.message}</span>
+          </div>
+        `;
+                    isAvailable = false;
+                    submitBtn.disabled = true;
+                } finally {
+                    checkBtn.disabled = false;
+                    checkBtn.innerHTML = 'Check';
+                }
+            }
+
+            async function createSubdomain(e) {
+                e.preventDefault();
+
+                if (!isAvailable) {
+                    UI.showNotification('Please check subdomain availability first', 'error');
+                    return;
+                }
+
+                const btn = document.getElementById('submitBtn');
+                const formData = {
+                    name: document.getElementById('name').value,
+                    domainId: document.getElementById('domainId').value,
+                    type: document.getElementById('type').value,
+                    target: document.getElementById('target').value
+                };
+
+                UI.showLoading(btn);
+
+                try {
+                    const result = await API.createSubdomain(formData);
+                    UI.showNotification(result.message || 'Subdomain created successfully', 'success');
+                    setTimeout(() => window.location.href = '/user/subdomains', 1500);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+        </script>
+</body>
+
+</html>

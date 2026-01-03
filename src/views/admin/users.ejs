@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <%- include('../partials/admin-sidebar') %>
+
+        <main class="ml-64 p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900">User Management</h1>
+                    <p class="text-slate-600">Create and manage user accounts</p>
+                </div>
+                <button onclick="UI.showModal('addUserModal')" class="btn btn-primary">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                        </path>
+                    </svg>
+                    Create User
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <% if (users && users.length> 0) { %>
+                        <div class="table-container border-0">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Assigned Domains</th>
+                                        <th>Subdomains</th>
+                                        <th>Created</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% users.forEach(user=> { %>
+                                        <tr>
+                                            <td>
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold">
+                                                        <%= user.email.charAt(0).toUpperCase() %>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold text-slate-900">
+                                                            <%= user.email %>
+                                                        </p>
+                                                        <p class="text-xs text-slate-400">ID: <%= user.id.substring(0,
+                                                                8) %>...</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="font-medium">
+                                                    <%= user._count.domainUsers %>
+                                                </span> domains
+                                            </td>
+                                            <td>
+                                                <span class="font-medium">
+                                                    <%= user._count.subdomains %>
+                                                </span> subdomains
+                                            </td>
+                                            <td class="text-slate-500">
+                                                <%= new Date(user.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td>
+                                                <div class="flex items-center justify-end gap-2">
+                                                    <button
+                                                        onclick="confirmDeleteUser('<%= user.id %>', '<%= user.email %>')"
+                                                        class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        title="Delete">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                            <div class="p-12 text-center">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <p class="text-slate-600 mb-2">No users created yet</p>
+                                <p class="text-sm text-slate-400 mb-4">Create your first user account</p>
+                                <button onclick="UI.showModal('addUserModal')" class="btn btn-primary">
+                                    Create User
+                                </button>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </main>
+
+        <!-- Add User Modal -->
+        <div id="addUserModal" class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-lg font-semibold text-slate-900">Create New User</h3>
+                    <button onclick="UI.hideModal('addUserModal')"
+                        class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="addUserForm" onsubmit="addUser(event)">
+                    <div class="modal-body space-y-4">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input"
+                                placeholder="user@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-input"
+                                placeholder="Minimum 6 characters" required minlength="6">
+                            <p class="text-sm text-slate-400 mt-2">User will use this password to login</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="UI.hideModal('addUserModal')"
+                            class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="addUserBtn" class="btn btn-primary">Create User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete User Modal -->
+        <div id="deleteUserModal" class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-lg font-semibold text-slate-900">Delete User</h3>
+                    <button onclick="UI.hideModal('deleteUserModal')"
+                        class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-slate-700">Are you sure you want to delete user <strong
+                                    id="deleteUserEmail"></strong>?</p>
+                            <p class="text-sm text-slate-500 mt-1">This will also delete all their subdomains. This
+                                action cannot be undone.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="UI.hideModal('deleteUserModal')"
+                        class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="confirmDeleteUserBtn" onclick="deleteUser()" class="btn btn-danger">Delete
+                        User</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/app.js"></script>
+        <script>
+            let deleteUserId = null;
+
+            async function addUser(e) {
+                e.preventDefault();
+                const btn = document.getElementById('addUserBtn');
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                UI.showLoading(btn);
+
+                try {
+                    await API.createUser(email, password, 'USER');
+                    UI.showNotification('User created successfully', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+
+            function confirmDeleteUser(id, email) {
+                deleteUserId = id;
+                document.getElementById('deleteUserEmail').textContent = email;
+                UI.showModal('deleteUserModal');
+            }
+
+            async function deleteUser() {
+                const btn = document.getElementById('confirmDeleteUserBtn');
+                UI.showLoading(btn);
+
+                try {
+                    await API.deleteUser(deleteUserId);
+                    UI.showNotification('User deleted successfully', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } catch (error) {
+                    UI.showNotification(error.message, 'error');
+                    UI.hideLoading(btn);
+                }
+            }
+        </script>
+</body>
+
+</html>

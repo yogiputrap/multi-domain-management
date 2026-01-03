@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="IFITB MULTIDOMAIN - Professional Multi-Domain Subdomain Management Platform for Enterprises">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-slate-900">IFITB MULTIDOMAIN</h1>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#features"
+                        class="text-sm text-slate-600 hover:text-slate-900 transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-sm text-slate-600 hover:text-slate-900 transition-colors">How It
+                        Works</a>
+                    <a href="/login" class="btn btn-primary">Login</a>
+                </nav>
+
+                <a href="/login" class="md:hidden btn btn-primary btn-sm">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <!-- Background decorations -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full text-primary-700 text-sm font-medium mb-8">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Enterprise-Grade Subdomain Management
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+                    Manage Multiple Domains
+                    <span class="gradient-text">With Ease</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+                    Powerful multi-tenant subdomain management platform. Create, manage, and monitor subdomains across
+                    all your domains from a single dashboard.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="/login" class="btn btn-primary btn-lg">
+                        Get Started
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                    <a href="#features" class="btn btn-secondary btn-lg">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dashboard Preview -->
+            <div class="mt-16 lg:mt-24 relative">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10 pointer-events-none">
+                </div>
+                <div class="relative mx-auto max-w-5xl">
+                    <div class="bg-white rounded-2xl shadow-elegant border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-100 px-4 py-3 flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+                            </div>
+                            <div class="flex-1 flex justify-center">
+                                <div class="bg-white rounded-lg px-4 py-1 text-sm text-slate-500">
+                                    app.ifitb.site/dashboard</div>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-slate-50">
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <div class="bg-white rounded-xl p-4 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-2xl font-bold text-slate-900">12</p>
+                                            <p class="text-sm text-slate-500">Domains</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-2xl font-bold text-slate-900">156</p>
+                                            <p class="text-sm text-slate-500">Subdomains</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-2xl font-bold text-slate-900">24</p>
+                                            <p class="text-sm text-slate-500">Users</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-xl border border-slate-100 overflow-hidden">
+                                <div class="px-4 py-3 border-b border-slate-100">
+                                    <p class="font-medium text-slate-700">Recent Subdomains</p>
+                                </div>
+                                <div class="divide-y divide-slate-100">
+                                    <div class="px-4 py-3 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                                                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-slate-700">api.ifitb.site</p>
+                                                <p class="text-xs text-slate-400">A Record → 192.168.1.100</p>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                    <div class="px-4 py-3 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                                                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-slate-700">blog.example.id</p>
+                                                <p class="text-xs text-slate-400">CNAME → hosting.provider.com</p>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 lg:py-32 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Powerful Features</h2>
+                <p class="text-lg text-slate-600">Everything you need to manage subdomains across multiple domains
+                    efficiently.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Multi-Domain Support</h3>
+                    <p class="text-slate-600">Manage unlimited root domains from a single dashboard. Add, configure, and
+                        monitor all your domains in one place.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">User Management</h3>
+                    <p class="text-slate-600">Create user accounts and assign specific domains to each user. Control
+                        access with role-based permissions.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Instant Provisioning</h3>
+                    <p class="text-slate-600">Create subdomains instantly with automatic DNS record configuration. No
+                        manual intervention required.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Secure by Default</h3>
+                    <p class="text-slate-600">Enterprise-grade security with JWT authentication, rate limiting, and
+                        role-based access control.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Analytics Dashboard</h3>
+                    <p class="text-slate-600">Get insights into your subdomain usage with comprehensive analytics and
+                        reporting tools.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="card card-body">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">API Ready</h3>
+                    <p class="text-slate-600">RESTful API for integration with your existing tools and workflows.
+                        Automate subdomain management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
+                <p class="text-lg text-slate-600">Get started in just a few simple steps.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+                        1</div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Add Your Domains</h3>
+                    <p class="text-slate-600">Admin adds root domains to the platform and configures DNS settings.</p>
+                </div>
+
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+                        2</div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Assign to Users</h3>
+                    <p class="text-slate-600">Create user accounts and assign specific domains they can manage.</p>
+                </div>
+
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
+                        3</div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-2">Create Subdomains</h3>
+                    <p class="text-slate-600">Users create and manage subdomains on their assigned domains.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 lg:py-32 bg-gradient-to-br from-primary-600 to-primary-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ready to Get Started?</h2>
+            <p class="text-lg text-primary-100 mb-10 max-w-2xl mx-auto">Start managing your subdomains with ease. Login
+                to access the dashboard.</p>
+            <a href="/login"
+                class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                Login to Dashboard
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                    </path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                            </path>
+                        </svg>
+                    </div>
+                    <span class="text-white font-semibold">IFITB MULTIDOMAIN</span>
+                </div>
+                <p class="text-sm">&copy; 2024 IFITB MULTIDOMAIN. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

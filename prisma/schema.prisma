@@ -1,0 +1,77 @@
+// Prisma Schema for IFITB MULTIDOMAIN
+// Multi-Domain Subdomain Management Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  passwordHash  String       @map("password_hash")
+  role          String       @default("USER") // ADMIN or USER
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  domainUsers   DomainUser[]
+  subdomains    Subdomain[]
+
+  @@map("users")
+}
+
+model Domain {
+  id                  String       @id @default(uuid())
+  rootDomain          String       @unique @map("root_domain")
+  status              String       @default("active") // active or disabled
+  cloudflareApiToken  String?      @map("cloudflare_api_token") // Cloudflare API Token for DNS provisioning
+  cloudflareZoneId    String?      @map("cloudflare_zone_id")   // Cloudflare Zone ID
+  createdAt           DateTime     @default(now()) @map("created_at")
+  updatedAt           DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  domainUsers DomainUser[]
+  subdomains  Subdomain[]
+
+  @@map("domains")
+}
+
+model DomainUser {
+  id        String   @id @default(uuid())
+  domainId  String   @map("domain_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  domain    Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([domainId, userId])
+  @@map("domain_users")
+}
+
+model Subdomain {
+  id                  String          @id @default(uuid())
+  name                String
+  fullDomain          String          @map("full_domain")
+  domainId            String          @map("domain_id")
+  userId              String          @map("user_id")
+  type                String          @default("A") // A or CNAME
+  target              String
+  status              String          @default("pending") // active, pending, or failed
+  cloudflareRecordId  String?         @map("cloudflare_record_id") // Cloudflare DNS record ID
+  createdAt           DateTime        @default(now()) @map("created_at")
+  updatedAt           DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  domain      Domain          @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, domainId])
+  @@map("subdomains")
+}

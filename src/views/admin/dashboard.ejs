@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <%- include('../partials/admin-sidebar') %>
+
+        <main class="ml-64 p-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-slate-900">Dashboard</h1>
+                <p class="text-slate-600">Welcome back, <%= user.email %>
+                </p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Users Stat -->
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-gradient-to-br from-primary-500 to-primary-600">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900">
+                                <%= stats.userCount %>
+                            </p>
+                            <p class="text-sm text-slate-500">Total Users</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domains Stat -->
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-gradient-to-br from-emerald-500 to-emerald-600">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900">
+                                <%= stats.domainCount %>
+                            </p>
+                            <p class="text-sm text-slate-500">Root Domains</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subdomains Stat -->
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-gradient-to-br from-purple-500 to-purple-600">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900">
+                                <%= stats.subdomainCount %>
+                            </p>
+                            <p class="text-sm text-slate-500">Total Subdomains</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <a href="/admin/domains"
+                    class="card card-body flex items-center gap-4 hover:border-primary-200 hover:shadow-lg transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-900">Add Domain</p>
+                        <p class="text-sm text-slate-500">Register new root domain</p>
+                    </div>
+                </a>
+
+                <a href="/admin/users"
+                    class="card card-body flex items-center gap-4 hover:border-emerald-200 hover:shadow-lg transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-900">Create User</p>
+                        <p class="text-sm text-slate-500">Add new user account</p>
+                    </div>
+                </a>
+
+                <a href="/admin/assignments"
+                    class="card card-body flex items-center gap-4 hover:border-purple-200 hover:shadow-lg transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-900">Assign Domain</p>
+                        <p class="text-sm text-slate-500">Link domains to users</p>
+                    </div>
+                </a>
+
+                <a href="/admin/subdomains"
+                    class="card card-body flex items-center gap-4 hover:border-amber-200 hover:shadow-lg transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center group-hover:bg-amber-200 transition-colors">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-900">View All</p>
+                        <p class="text-sm text-slate-500">All subdomains list</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Recent Subdomains -->
+            <div class="card">
+                <div class="card-header flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-slate-900">Recent Subdomains</h2>
+                    <a href="/admin/subdomains" class="text-sm text-primary-600 hover:text-primary-700 font-medium">View
+                        All →</a>
+                </div>
+                <div class="card-body p-0">
+                    <% if (recentSubdomains && recentSubdomains.length> 0) { %>
+                        <div class="table-container border-0">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subdomain</th>
+                                        <th>Type</th>
+                                        <th>Target</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% recentSubdomains.forEach(sub=> { %>
+                                        <tr>
+                                            <td>
+                                                <div class="flex items-center gap-3">
+                                                    <div
+                                                        class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
+                                                        <svg class="w-4 h-4 text-slate-500" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium text-slate-900">
+                                                            <%= sub.fullDomain %>
+                                                        </p>
+                                                        <p class="text-xs text-slate-400">
+                                                            <%= sub.domain.rootDomain %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-info">
+                                                    <%= sub.type %>
+                                                </span>
+                                            </td>
+                                            <td class="font-mono text-sm">
+                                                <%= sub.target %>
+                                            </td>
+                                            <td>
+                                                <%= sub.user.email %>
+                                            </td>
+                                            <td>
+                                                <% if (sub.status==='active' ) { %>
+                                                    <span class="badge badge-success">Active</span>
+                                                    <% } else if (sub.status==='pending' ) { %>
+                                                        <span class="badge badge-warning">Pending</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-danger">Failed</span>
+                                                            <% } %>
+                                            </td>
+                                            <td class="text-slate-500">
+                                                <%= new Date(sub.createdAt).toLocaleDateString() %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                            <div class="p-12 text-center">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <p class="text-slate-600">No subdomains created yet</p>
+                                <p class="text-sm text-slate-400">Users can create subdomains from their dashboard</p>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </main>
+
+        <script src="/js/app.js"></script>
+</body>
+
+</html>
