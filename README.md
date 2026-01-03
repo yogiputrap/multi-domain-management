@@ -236,9 +236,4 @@ npm run build:css
 MIT
 
 ## 👥 Author
-
-IFITB Team
-
----
-
-**Built with ❤️ by IFITB Team**
+**Built with ❤️**
