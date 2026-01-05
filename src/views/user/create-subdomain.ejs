@@ -154,7 +154,7 @@
                 const selectedOption = domainSelect.options[domainSelect.selectedIndex];
                 const rootDomain = selectedOption?.dataset?.domain || 'example.com';
                 const previewBox = document.getElementById('previewBox');
-                const previewText = document.getElementById('previewText');
+                const previewText = document.getElementById('fullDomainPreview');
                 const submitBtn = document.getElementById('submitBtn');
 
                 if (name && domainSelect.value) {
