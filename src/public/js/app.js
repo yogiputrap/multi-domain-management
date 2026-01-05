@@ -50,7 +50,21 @@ const API = {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Request failed');
+            // Extract the most meaningful error message
+            let errorMessage = 'Something went wrong. Please try again.';
+
+            if (data.message) {
+                // Direct message from server
+                errorMessage = data.message;
+            } else if (data.error) {
+                // Single error string
+                errorMessage = data.error;
+            } else if (data.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+                // Validation errors array - get the first error message
+                errorMessage = data.errors[0].message || data.errors[0];
+            }
+
+            throw new Error(errorMessage);
         }
 
         return data;

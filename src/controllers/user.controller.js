@@ -151,8 +151,13 @@ class UserController {
             const validation = validate(checkAvailabilitySchema)(req.body);
 
             if (!validation.success) {
+                // Get the first error message for display
+                const firstError = validation.errors[0]?.message || 'Invalid input';
+
                 return res.status(400).json({
                     success: false,
+                    available: false,
+                    message: firstError,
                     errors: validation.errors
                 });
             }
@@ -168,6 +173,8 @@ class UserController {
             if (!assignment) {
                 return res.status(403).json({
                     success: false,
+                    available: false,
+                    message: 'You do not have access to this domain',
                     error: 'You do not have access to this domain'
                 });
             }
