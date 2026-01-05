@@ -1,3 +1,26 @@
+<!-- Mobile Header -->
+<header class="mobile-header">
+    <div class="flex items-center gap-3">
+        <div
+            class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                </path>
+            </svg>
+        </div>
+        <span class="font-bold text-slate-900">IFITB MULTIDOMAIN</span>
+    </div>
+    <button onclick="MobileSidebar.toggle()" class="p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+</header>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" onclick="MobileSidebar.close()"></div>
+
 <!-- User Sidebar -->
 <aside class="sidebar">
     <div class="sidebar-header">
@@ -15,6 +38,11 @@
                 <p class="text-xs text-slate-500">MULTIDOMAIN</p>
             </div>
         </div>
+        <button onclick="MobileSidebar.close()" class="sidebar-close">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
     </div>
 
     <nav class="sidebar-nav">

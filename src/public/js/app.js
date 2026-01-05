@@ -1,4 +1,35 @@
 /**
+ * Mobile Sidebar Controller
+ */
+const MobileSidebar = {
+    open() {
+        document.querySelector('.sidebar')?.classList.add('open');
+        document.querySelector('.sidebar-overlay')?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+    close() {
+        document.querySelector('.sidebar')?.classList.remove('open');
+        document.querySelector('.sidebar-overlay')?.classList.remove('active');
+        document.body.style.overflow = '';
+    },
+    toggle() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar?.classList.contains('open')) {
+            this.close();
+        } else {
+            this.open();
+        }
+    }
+};
+
+// Close sidebar on resize to desktop
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+        MobileSidebar.close();
+    }
+});
+
+/**
  * API Client for IFITB MULTIDOMAIN
  */
 const API = {
