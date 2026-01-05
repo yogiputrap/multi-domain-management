@@ -91,11 +91,11 @@
                             <% } %>
         </div>
     </nav>
-
-    <div class="p-4 border-t border-slate-100">
-        <div class="flex items-center gap-3 px-3 py-2">
+    <!-- User Profile - Safe area padding for mobile -->
+    <div class="p-4 pb-8 border-t border-slate-100 mt-auto">
+        <div class="flex items-center gap-3 px-3 py-3 bg-slate-50 rounded-xl">
             <div
-                class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold text-sm">
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
                 <%= user.email.charAt(0).toUpperCase() %>
             </div>
             <div class="flex-1 min-w-0">
@@ -105,7 +105,7 @@
                 <p class="text-xs text-slate-500">User</p>
             </div>
             <a href="/logout"
-                class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                class="p-2.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors flex-shrink-0"
                 title="Logout">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

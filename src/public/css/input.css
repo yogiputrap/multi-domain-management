@@ -85,6 +85,7 @@
   .sidebar {
     @apply fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-200 z-40 flex flex-col;
     @apply -translate-x-full lg:translate-x-0 transition-transform duration-300;
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
   .sidebar.open {
