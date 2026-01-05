@@ -62,13 +62,19 @@
                                 <div class="form-group">
                                     <label for="name" class="form-label">Subdomain Name</label>
                                     <div class="relative">
-                                        <input type="text" id="name" name="name" class="form-input"
+                                        <input type="text" id="name" name="name" class="form-input pr-24"
                                             placeholder="mysubdomain" required
                                             pattern="^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?$" maxlength="63"
                                             oninput="handleNameInput()">
-                                        <div id="checkingSpinner"
-                                            class="absolute right-3 top-1/2 -translate-y-1/2 hidden">
-                                            <span class="spinner"></span>
+                                        <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                            <div id="checkingSpinner" class="hidden">
+                                                <span class="spinner"></span>
+                                            </div>
+                                            <button type="button" id="checkBtn" onclick="manualCheck()"
+                                                class="px-3 py-1.5 bg-primary-50 text-primary-600 text-sm font-medium rounded-lg hover:bg-primary-100 transition-colors"
+                                                disabled>
+                                                Check
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -148,6 +154,12 @@
                 }, 500);
             }
 
+            function manualCheck() {
+                // Cancel any pending auto-check
+                clearTimeout(checkTimeout);
+                checkAvailability();
+            }
+
             function updatePreview() {
                 const name = document.getElementById('name').value;
                 const domainSelect = document.getElementById('domainId');
@@ -156,15 +168,18 @@
                 const previewBox = document.getElementById('previewBox');
                 const previewText = document.getElementById('fullDomainPreview');
                 const submitBtn = document.getElementById('submitBtn');
+                const checkBtn = document.getElementById('checkBtn');
 
                 if (name && domainSelect.value) {
                     previewText.textContent = `${name}.${rootDomain}`;
                     previewBox.classList.remove('hidden');
+                    checkBtn.disabled = false;
                     isAvailable = false;
                     submitBtn.disabled = true;
                     document.getElementById('availabilityResult').innerHTML = '';
                 } else {
                     previewBox.classList.add('hidden');
+                    checkBtn.disabled = true;
                     submitBtn.disabled = true;
                 }
             }
