@@ -964,8 +964,10 @@ h1,
 @media (min-width: 1024px) {
   .main-content {
     margin-left: 16rem;
-    padding: 2rem;
-    padding-top: 0px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
   }
 }
 
