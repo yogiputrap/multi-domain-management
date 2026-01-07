@@ -1,6 +1,8 @@
 # IFITB MULTIDOMAIN
 
-<img src="https://socialify.git.ci/yogiputrap/multi-domain-management/image?custom_language=Next.js&language=1&name=1&owner=1&stargazers=1&theme=Light" alt="multi-domain-management" width="640" height="320" />
+<div align="center">
+  <img src="https://socialify.git.ci/yogiputrap/multi-domain-management/image?custom_language=Next.js&language=1&name=1&owner=1&stargazers=1&theme=Light" />
+</div>
 
 **Multi-Domain Subdomain Management Platform**
 
