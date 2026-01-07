@@ -1,5 +1,7 @@
 # IFITB MULTIDOMAIN
+
 <img src="https://socialify.git.ci/yogiputrap/multi-domain-management/image?custom_language=Next.js&language=1&name=1&owner=1&stargazers=1&theme=Light" alt="multi-domain-management" width="640" height="320" />
+
 **Multi-Domain Subdomain Management Platform**
 
 A production-grade SaaS platform for managing subdomains across multiple root domains with role-based access control.
